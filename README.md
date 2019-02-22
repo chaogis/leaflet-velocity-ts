@@ -44,9 +44,10 @@ MIT License (MIT)
 参考 https://github.com/danwild/leaflet-velocity/issues/15
 	具体内容如下：
 	Hi @danwild! Thanks for your answer. I discovered modifying "lat" variable where "invert(x, y, windy)" is defined to, it do the trick:
+'''javascript
 	_lat = rad2deg(windy.north) + y / windy.height * rad2deg(mapLatDelta);_
 	with _var mapLatDelta = windy.south - windy.north;_
-
+'''
 	You can visualize the results fine until zoom 6 with Web Mercator projection. At zoom 5 image canvas just don't adjust to map. However, with EPSG4326 looks good at all zoom levels and this is what I want, to get native projection from satellite and another meteorology products.
 
 	And I was close to forget it, variable "H" should be modified too:
@@ -57,6 +58,7 @@ MIT License (MIT)
 	I attach a zip file with your main demo but modified to be able to use in your computer. If you have any quastion, please don't hesitate to ask me. Thanks for your awesome plugin.
 
 ## 针对真气网风场数据的解码
+'''javascript
 v = e.getGzipData = function (t, e, n, i)
         {
             var r = l.
@@ -109,9 +111,10 @@ v = e.getGzipData = function (t, e, n, i)
                     console.log("其他异常:", t)
                 })
         },
-	
+'''
 # 使用pako进行解码，参考 https://github.com/nodeca/pako
 # 对真气网数据的加载使用，展示上需要修改leaflet-velocity的源码，如下：
+'''javascript
 var o = this.createBuilder(t),
                             a = o.header,
                             s = a.lo1, //西经
@@ -143,4 +146,5 @@ var o = this.createBuilder(t),
                                 date: f,
                                 interpolate: r_
                             })
+'''
 # 需要对la1 la2的大小进行判断，并据此对外层循环进行处理
